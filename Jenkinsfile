@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('w/o docker') {
-            steps {
-                sh 'echo "Xin chao Bao dep trai"'
+        stage('Build') {
+            docker {
+                image 'node:18-alpine'
+                reuseNode true;
             }
-        }
-        stage('w docker') {
-            agent{
-                docker{
-                    image 'node:18-alpine'
-                }
-            }
-            steps {
-                sh 'echo "Xin chao Bao dep trai"'
-                sh 'npm --version'
+            steps{
+                sh '''
+                    ls -la
+                    node --version
+                    npm --version
+                
+                
+                '''
             }
         }
     }
